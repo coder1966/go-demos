@@ -1,0 +1,47 @@
+package main
+
+import "fmt"
+
+// 适配的目标接口
+type Target interface {
+	Request() string
+}
+type adapter struct {
+	Adaptee
+}
+
+func NewAdaptor(adaptee Adaptee) Target {
+	return &adapter{Adaptee: adaptee}
+}
+
+// 接口包装，这一步实现了接口的适配
+func (a *adapter) Request() string {
+	return a.SpecficRequest() // 故意调用另外一个
+}
+
+// 被适配
+type Adaptee interface {
+	SpecficRequest() string
+}
+
+// 载体,被适配的目标类 ，为了New函数能返回
+type adapeeImpl struct{}
+
+// 实际函数,翻译，桥接 作用
+func (a *adapeeImpl) SpecficRequest() string {
+	return "SpecficRequest()  测试 字符串"
+}
+
+// 工厂函数
+func NewAdaptee() Adaptee {
+	return &adapeeImpl{}
+}
+
+func main() {
+	// 适配器
+	ad := NewAdaptee()
+	// 传递进入
+	ta := NewAdaptor(ad)
+	res := ta.Request()
+	fmt.Println(res)
+}
