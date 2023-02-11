@@ -8,8 +8,8 @@ import (
 )
 
 var (
-	keyC   = "/datakit/confd/netstat"
-	keyP   = "/datakit/pipeline/metric/disk.p"
+	keyC   = "/dataconf/confd/netstat"
+	keyP   = "/dataconf/pipe/metric/disk.p"
 	valueC string
 	valueP string
 )
