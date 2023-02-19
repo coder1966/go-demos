@@ -2,6 +2,9 @@ package main
 
 /*
 stopAllCh := make(chan struct{}) // If close this chanel all goroutine will cancel
+If close this chanel all goroutine will cancel
+If close this chanel all goroutine will cancel
+If close this chanel all goroutine will cancel
 */
 
 import (
@@ -9,14 +12,16 @@ import (
 	"time"
 )
 
+// this is main func.
 func main() {
-	stopAllCh := make(chan struct{}) // If close this chanel all goroutine will cancel
-	sub(stopAllCh)
-	fmt.Println("sub() 回来了")
+	stopAllCh := make(chan struct{}) // If close this chanel all goroutine will cancel.
+	Sub(stopAllCh)
+	fmt.Println("sub() 回来了") // do it
 	time.Sleep(time.Millisecond * 200000)
 }
 
-func sub(stopAllCh chan struct{}) {
+// Sub this is sub func.
+func Sub(stopAllCh chan struct{}) {
 	go subA(stopAllCh)
 	go subB(stopAllCh)
 	go subC(stopAllCh)
@@ -72,6 +77,4 @@ func subD(stopAllCh chan struct{}) {
 	time.Sleep(time.Second * 4)
 	fmt.Print("#D#")
 	close(stopAllCh)
-	return
-
 }
