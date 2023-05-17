@@ -43,7 +43,7 @@ func main() {
 	hero.SetWeaponStrategy(new(Ak47))
 	hero.Fight()
 
-	// 策略1
+	// 策略2
 	hero.SetWeaponStrategy(new(Knife))
 	hero.Fight()
 }

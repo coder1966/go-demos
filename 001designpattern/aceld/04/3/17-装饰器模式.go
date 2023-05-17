@@ -89,12 +89,15 @@ func main() {
 	var huawei Phone = new(Huawei)
 	huawei.Show()
 
+	// 通过 膜 的 Decorator 对 对象 装饰
 	var moHuawei Phone = NewMoDecorator(huawei)
 	moHuawei.Show()
 
 	var keHuawei Phone = NewKeDecorator(huawei)
 	keHuawei.Show()
 
+	// 多级装饰
+	// 通过 膜 的 Decorator 对 已经 壳 装饰过的 对象 装饰
 	var keMoHuawei Phone = NewMoDecorator(keHuawei)
 	keMoHuawei.Show()
 }

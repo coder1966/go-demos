@@ -78,9 +78,11 @@ require (
 	github.com/samuel/go-zookeeper v0.0.0-20201211165307-7117e9ea2414 // indirect
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/sethgrid/pester v0.0.0-20180430140037-03e26c9abbbf // indirect
+	github.com/shirou/gopsutil v3.21.11+incompatible // indirect
 	github.com/sirupsen/logrus v1.7.0 // indirect
 	github.com/skeema/knownhosts v1.1.0 // indirect
 	github.com/src-d/gcfg v1.4.0 // indirect
+	github.com/syndtr/goleveldb v1.0.0 // indirect
 	github.com/vmihailenco/msgpack v4.0.4+incompatible // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	github.com/xordataexchange/crypt v0.0.3-0.20170626215501-b2862e3d0a77 // indirect

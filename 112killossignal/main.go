@@ -31,5 +31,4 @@ func waitOsSignal(osSignal chan os.Signal, exitCh chan struct{}) {
 	// 给全体广播信号
 	close(exitCh)
 	fmt.Println("收到系统信号： ", s)
-
 }

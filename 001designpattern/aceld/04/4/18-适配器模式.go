@@ -34,17 +34,17 @@ import "fmt"
 
 // 适配的目标 --- 虚拟
 type V5 interface {
-	User5V()
+	Use5V()
 }
 
 // 被适配者，只有220V能力，并不是 V5 的子类
 type V220 struct{}
 
-func (v *V220) User220V() {
+func (v *V220) Use220V() {
 	fmt.Println("使用 220 V 电压")
 }
 
-// 适配器累，为了
+// 适配器累，为了继承5V，同时拥有220V
 type Adapter struct {
 	v220 *V220 // 有V220 成员，继承 5V，同时拥有220
 }
@@ -53,10 +53,10 @@ func NewAdaptor(v220 *V220) *Adapter {
 	return &Adapter{v220}
 }
 
-func (a *Adapter) User5V() {
-	fmt.Println("继承 5V，同时拥有220  重写User5V 使用适配器进行充电 ")
+func (a *Adapter) Use5V() {
+	fmt.Println("继承 5V, 同时拥有220  重写User5V 使用适配器进行充电 ")
 	// 调用适配者方法,调5V，实际上使用 的是适配器里面的220
-	a.v220.User220V()
+	a.v220.Use220V()
 }
 
 // 业务类
@@ -71,7 +71,7 @@ func NewPhone(v V5) *Phone {
 // 普通业务功能
 func (p *Phone) Charge() {
 	fmt.Println("Phone 进行的 充电")
-	p.v.User5V()
+	p.v.Use5V()
 
 }
 
