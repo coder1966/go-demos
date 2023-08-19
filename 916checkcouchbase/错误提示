@@ -1,0 +1,14 @@
+
+177 false -1 cbcbas,cluster=test3-db system_load_average=2.04 1689483241331809124
+177 false -1 cbcbas,cluster=test3-db system_load_avg=2.03 1689483250934239298
+
+false -1 cbnode,cluster=test3-db,node=172.17.0.2:8091 systemStatsSwapTotal=0 1689483241308270443
+
+
+244 false -1 cbnode,cluster=test3-db,node=172.17.0.2:8091 interestingstats_vb_active_num_non_resident=0 1689483241308355337
+244 false -1 cbnode,cluster=test3-db,node=172.17.0.2:8091 interestingstats_vb_active_number_non_resident=0 1689483250935288548
+
+
+
+341 false -1 cbpernodebucket,bucket=gamesim-sample,cluster=test3-db,node=172.17.0.2:8091 ep_dcp_views+indexes_backoff=0 1689483241408742510
+341 false -1 cbpernodebucket,bucket=gamesim-sample,cluster=test3-db,node=172.17.0.2:8091 ep_dcp_views_backoff=0 1689483250929633965

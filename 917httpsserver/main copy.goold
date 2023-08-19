@@ -1,0 +1,18 @@
+// https://blog.csdn.net/xixihahalelehehe/article/details/112371200md
+
+package main
+
+import (
+	"io"
+	"log"
+	"net/http"
+)
+
+func main() {
+	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+		io.WriteString(w, "hello, world!\n")
+	})
+	if e := http.ListenAndServeTLS(":443", "/tmp/cb/server.pem", "/tmp/cb/server.key", nil); e != nil {
+		log.Fatal("ListenAndServe: ", e)
+	}
+}

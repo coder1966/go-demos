@@ -1,3 +1,7 @@
+李文周 https://www.liwenzhou.com/posts/Go/functional-options-pattern/
+
+
+
 ## 不使用功能选项模式
 ​ 在设计 API 时，可能会出现一个问题：我们如何处理可选配置？ 有效地解决这个问题可以提高我们的 API 的便利性。 本节将通过一个具体示例介绍处理可选配置的不同方法。
 

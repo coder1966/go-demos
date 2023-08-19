@@ -29,9 +29,8 @@ func main() {
 		// return 0, 0, fmt.Errorf("error getting disk usage info: %w", err)
 	}
 	fmt.Println(usage.Total, usage.Used)
-	diskTotal += usage.Total
-	diskUsed += usage.Used
-	fmt.Printf("ipt.usage : %d %d", usage.Total, usage.Used)
+
+	fmt.Printf("ipt.usage : %d %d \n", usage.Total, usage.Used)
 
 	partitions, err := diskutil.Partitions(false) // false: only physical partition
 	if err != nil {
@@ -44,11 +43,12 @@ func main() {
 		if err != nil {
 			fmt.Println(" error: ", err)
 		} else {
-			fmt.Printf("ipt.usage :%d %d %d %s\n", i, usage.Total, usage.Used, partition.Mountpoint)
+			fmt.Printf("ipt.usage :%d || %d || %d || %s || %s || %s || %v\n", i, usage.Total, usage.Used,
+				partition.Mountpoint, partition.Device, partition.Fstype, partition.Opts)
 			diskTotal += usage.Total
 			diskUsed += usage.Used
 		}
-
 	}
 
+	fmt.Printf("ipt.usage :%d %d \n", diskTotal, diskUsed)
 }
