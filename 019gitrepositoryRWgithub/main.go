@@ -17,8 +17,6 @@ func main() {
 	url := "https://github.com/src-d/go-siva"
 	// url = "https://github.com/go-git/go-git"
 	url = "https://github.com/go-git/go-billy"
-	url = "https://github.com/BrotherSam66/goreleaser"
-	url = "https://github.com/coder1966/git-repo-demo"
 	// path := "."
 	fmt.Println("################## cloneContext(url)")
 	cloneContext(url)
