@@ -1,0 +1,100 @@
+package main
+
+// https://github.com/go-git/go-git/tree/master/_examples
+
+import (
+	"encoding/hex"
+	"fmt"
+	"time"
+
+	git "github.com/go-git/go-git/v5"
+	// . "github.com/go-git/go-git/v5/_examples"
+	"github.com/go-git/go-git/v5/plumbing/object"
+	"github.com/go-git/go-git/v5/storage/memory"
+)
+
+func main() {
+	url := "https://github.com/src-d/go-siva"
+	// url = "https://github.com/go-git/go-git"
+	url = "https://github.com/go-git/go-billy"
+	url = "https://github.com/BrotherSam66/goreleaser"
+	url = "https://github.com/coder1966/git-repo-demo"
+	// path := "."
+	fmt.Println("################## cloneContext(url)")
+	cloneContext(url)
+	fmt.Println("################## clone(url)")
+	// clone(url)
+
+}
+
+func clone(url string) {
+	// Clones the given repository, creating the remote, the local branches
+	// and fetching the objects, everything in memory:
+	// Info("git clone https://github.com/src-d/go-siva")
+	r, err := git.Clone(memory.NewStorage(), nil, &git.CloneOptions{
+		URL: url,
+	})
+	// CheckIfError(err)
+	if err != nil {
+		fmt.Println(" error: ", err)
+	}
+
+	// Gets the HEAD history from HEAD, just like this command:
+	// Info("git log")
+
+	// ... retrieves the branch pointed by HEAD
+	ref, err := r.Head()
+	// CheckIfError(err)
+	if err != nil {
+		fmt.Println(" error: ", err)
+	}
+
+	// ... retrieves the commit history
+	since := time.Date(2019, 1, 1, 0, 0, 0, 0, time.UTC)
+	until := time.Date(2019, 7, 30, 0, 0, 0, 0, time.UTC)
+	cIter, err := r.Log(&git.LogOptions{From: ref.Hash(), Since: &since, Until: &until})
+	// CheckIfError(err)
+	if err != nil {
+		fmt.Println(" error: ", err)
+	}
+
+	// ... just iterates over the commits, printing it
+	err = cIter.ForEach(func(c *object.Commit) error {
+		fmt.Println(c)
+
+		return nil
+	})
+	// CheckIfError(err)
+	if err != nil {
+		fmt.Println(" error: ", err)
+	}
+}
+
+func cloneContext(url string) {
+	// 	拉取仓库：
+	// 通过 github 地址
+	r, err := git.Clone(memory.NewStorage(), nil, &git.CloneOptions{
+		URL: "仓库地址",
+	})
+
+	//	通过本地仓库
+	//
+	// r, err := git.PlainOpen("本地仓库路径")
+
+}
+
+// r.Head() 获取的是一个结构体存有的数据，数据格式可以阅读源码获得：
+// Reference is a representation of git reference
+type Reference struct {
+	t      ReferenceType
+	n      ReferenceName
+	h      Hash
+	target ReferenceName
+}
+
+// Hash SHA1 hashed content
+type Hash [20]byte
+
+func (h Hash) String() string {
+	return hex.EncodeToString(h[:])
+}

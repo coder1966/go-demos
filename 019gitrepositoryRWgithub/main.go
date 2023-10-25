@@ -18,10 +18,13 @@ func main() {
 	// url = "https://github.com/go-git/go-git"
 	url = "https://github.com/go-git/go-billy"
 	url = "https://github.com/BrotherSam66/goreleaser"
+	url = "https://github.com/coder1966/git-repo-demo"
+	// path := "."
 	fmt.Println("################## cloneContext(url)")
 	cloneContext(url)
 	fmt.Println("################## clone(url)")
-	// clone(url)
+	clone(url)
+	fmt.Println("################## main()")
 
 }
 
@@ -54,7 +57,7 @@ func clone(url string) {
 
 	// ... retrieves the commit history
 	since := time.Date(2019, 1, 1, 0, 0, 0, 0, time.UTC)
-	until := time.Date(2019, 7, 30, 0, 0, 0, 0, time.UTC)
+	until := time.Date(2025, 7, 30, 0, 0, 0, 0, time.UTC)
 	cIter, err := r.Log(&git.LogOptions{From: ref.Hash(), Since: &since, Until: &until})
 	// CheckIfError(err)
 	if err != nil {
@@ -99,7 +102,7 @@ func cloneContext(url string) {
 
 	// ... retrieves the commit history
 	since := time.Date(2019, 1, 1, 0, 0, 0, 0, time.UTC)
-	until := time.Date(2019, 7, 30, 0, 0, 0, 0, time.UTC)
+	until := time.Date(2025, 7, 30, 0, 0, 0, 0, time.UTC)
 	cIter, err := r.Log(&git.LogOptions{From: ref.Hash(), Since: &since, Until: &until})
 	// CheckIfError(err)
 	if err != nil {
