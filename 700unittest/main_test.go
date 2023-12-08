@@ -162,3 +162,21 @@ func Test_wantLess5(t *testing.T) {
 		})
 	}
 }
+
+/*
+Benchmark 测试
+
+$ go test -bench .
+goos: linux
+goarch: amd64
+pkg: godemos/700unittest
+cpu: Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz
+Benchmark_add-8         1000000000               0.2559 ns/op
+PASS
+ok      godemos/700unittest     0.293s
+*/
+func Benchmark_add(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		add(30, n)
+	}
+}

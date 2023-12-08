@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/go-redis/redis/v8"
 )
@@ -24,6 +25,7 @@ func main() {
 	RedisDo(1, "127.0.0.1")
 }
 func RedisDo(index int, ip string) {
+
 	fmt.Println("===redis===index:", index)
 
 	// 初始化redis客户端
@@ -36,23 +38,107 @@ func RedisDo(index int, ip string) {
 	// 创建2个值，valueC，valueP
 	creatValues(index)
 
+	// 批量写数据
+	batchLen := 3000
+	// 写字符串
+	keySlice := []string{}
+	for i := 0; i < batchLen; i++ {
+		l := strings.Trim(fmt.Sprintf("%d", i), "")
+		keySlice = append(keySlice, "keySlice"+l)
+	}
+	for i, v := range keySlice {
+		handle(conn, valueStr{key: v, value: strings.Repeat("0123456789abcdef", i)})
+	}
+	// 写字符串
+	keyZSets := []string{}
+	for i := 0; i < batchLen; i++ {
+		l := strings.Trim(fmt.Sprintf("%d", i), "")
+		keyZSets = append(keySlice, "keyZSet"+l)
+	}
+	for i, keyZSet := range keyZSets {
+		zSets := []*redis.Z{}
+		for j := 0; j < i+1; j++ {
+			zSet := &redis.Z{Score: float64(j), Member: "Member" + strings.Trim(fmt.Sprintf("%d", j), "")}
+			zSets = append(zSets, zSet)
+		}
+		handleZSet(conn, keyZSet, zSets)
+	}
+
 	// 处理
 	switch index {
 	case 0:
+
 		handle(conn, valueStr{key: keyC, value: valueC}, valueStr{key: keyP, value: valueP})
 	case 1:
+
 		handle(conn, valueStr{key: keyC, value: valueC}, valueStr{key: keyP, value: valueP})
 	case 2:
+
 		handle(conn, valueStr{key: keyC, value: valueC}, valueStr{key: keyP, value: valueP})
 	case 3:
+
 		handle(conn, valueStr{key: keyP, value: valueP})
 	case 4:
+
 		handle(conn, valueStr{key: keyC, value: valueC})
 	}
 
 	// get(conn, keyP)
 	// get(conn, keyC)
 
+}
+
+func RedisDo02(index int, ip string) {
+
+	fmt.Println("===redis===index:", index)
+
+	// 初始化redis客户端
+	conn := redis.NewClient(&redis.Options{
+		Addr: ip + ":6379",
+		// Password: "654123", // no password set
+		DB: 0, // use default DB
+	})
+	// 初始化context
+	ctx := context.Background()
+
+	for i := 0; i < index; i++ {
+		keyC = "keyC" + fmt.Sprint(i)
+		valueC = "valueC" + fmt.Sprint(i)
+
+		// 写
+		err := conn.Set(ctx, keyC, valueC, 0).Err()
+		if err != nil {
+			fmt.Println("redis put error: ", err)
+		}
+		fmt.Println("redis put : ", i)
+	}
+
+}
+
+func RedisDo03(index int, ip string) {
+	// 初始化redis客户端
+	conn := redis.NewClient(&redis.Options{
+		Addr: ip + ":6379",
+		// Password: "654123", // no password set
+		DB: 0, // use default DB
+	})
+	// 批量写数据
+	batchLen := index
+	// 写字符串
+	keySlice := []string{}
+	for i := 0; i < batchLen; i++ {
+		l := strings.Trim(fmt.Sprintf("%d", i), "")
+		keySlice = append(keySlice, "wo"+l)
+	}
+	for i, v := range keySlice {
+		handle(conn, valueStr{key: v, value: strings.Repeat("0123456789abcdef", i)})
+	}
+}
+
+func handleZSet(conn *redis.Client, k string, v []*redis.Z) {
+	ctx, cancel := context.WithTimeout(context.Background(), 500*time.Millisecond)
+	defer cancel()
+	_ = conn.ZAdd(ctx, k, v...).Err()
 }
 
 func handle(conn *redis.Client, valueStr ...valueStr) {
