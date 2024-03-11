@@ -9,6 +9,11 @@ import (
 	"github.com/syndtr/goleveldb/leveldb/util"
 )
 
+/*
+  如何知道最后写入的块是什么？（）
+  bloom 咋用的，我不想用
+*/
+
 // type User struct {
 // 	ID   int
 // 	Name string
@@ -23,7 +28,7 @@ type BatchData struct {
 
 func main() {
 	// 打开、创建
-	db, err := leveldb.OpenFile("./leveldb/blockstore.db", nil)
+	db, err := leveldb.OpenFile("./leveldb/store.db", &opt.Options{})
 	if err != nil {
 		fmt.Printf("leveldb.OpenFile err: %v ", err)
 	}
@@ -48,6 +53,10 @@ func main() {
 		{[]byte("bame2"), []byte(" 山b2")},
 		{[]byte("bame3"), []byte(" 山b3")},
 	}...)
+
+	for i := 0; i < 9999; i++ {
+		Write(db, []byte("nomeX"+fmt.Sprint(i)), []byte(" 高山YYYYx"+fmt.Sprint(i)))
+	}
 
 	// 读取
 	fmt.Println(Get(db, []byte("name1")))
@@ -82,6 +91,17 @@ func main() {
 	// u.Sex = "男"
 
 	// db.Put("user-1", u, nil)
+
+	// 迭代
+	iter := db.NewIterator(&util.Range{
+		Start: []byte("0"),          // 遍历开始
+		Limit: []byte("9999999999"), // 遍历结束
+	}, nil)
+	for iter.Next() {
+		k := iter.Key()
+		v := iter.Value()
+		fmt.Println("", k, v)
+	}
 }
 
 // 写
@@ -175,7 +195,7 @@ func Del(db *leveldb.DB, k []byte) error {
 // 带上bloom过滤器
 func Bloom() {
 	o := &opt.Options{
-		Filter: filter.NewBloomFilter(10),
+		Filter: filter.NewBloomFilter(256), // 过滤器的位数
 	}
 	dbBloom, err := leveldb.OpenFile("./leveldbbloom", o)
 	if err != nil {
@@ -183,4 +203,26 @@ func Bloom() {
 	}
 	defer dbBloom.Close()
 
+	ok, err := dbBloom.Has([]byte("001"), nil)
+
+	_, _ = ok, err
+
 }
+
+// Batch writes:
+// ```go
+// batch := new(leveldb.Batch)
+// batch.Put([]byte("foo"), []byte("value"))
+// batch.Put([]byte("bar"), []byte("another value"))
+// batch.Delete([]byte("baz"))
+// err = db.Write(batch, nil)
+// ...
+// ```
+// Use bloom filter:
+// ```go
+// o := &opt.Options{
+// 	Filter: filter.NewBloomFilter(10),
+// }
+// db, err := leveldb.OpenFile("path/to/db", o)
+// ...
+// defer db.Close()

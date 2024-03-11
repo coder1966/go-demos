@@ -1,0 +1,80 @@
+package main
+
+import (
+	"bytes"
+	"fmt"
+	"io/ioutil"
+	"log"
+	"net/http"
+)
+
+var recordedRequests []*http.Request
+
+func recordRequest(req *http.Request) error {
+	// 读取请求体
+	body, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		return err
+	}
+	// 创建一个请求的副本
+	recordedReq := req.Clone(req.Context())
+	recordedReq.Body = ioutil.NopCloser(bytes.NewReader(body))
+
+	// 将请求体还原，以便后续处理
+	req.Body = ioutil.NopCloser(bytes.NewReader(body))
+
+	// 将请求保存到列表中
+	recordedRequests = append(recordedRequests, recordedReq)
+	return nil
+}
+
+func replayRequests() {
+	for _, req := range recordedRequests {
+		// 读取存储的请求体
+		bodyBytes, _ := ioutil.ReadAll(req.Body)
+		// 创建一个新的HTTP客户端
+		client := &http.Client{}
+		// 从原始数据中重建请求
+		newReq, err := http.NewRequest(req.Method, req.URL.String(), bytes.NewReader(bodyBytes))
+		if err != nil {
+			log.Fatalf("Creating request failed: %v", err)
+		}
+		newReq.Header = req.Header
+
+		// 发送请求
+		resp, err := client.Do(newReq)
+		if err != nil {
+			log.Fatalf("Replaying request failed: %v", err)
+		}
+
+		// 打印回放的响应状态
+		fmt.Printf("Replayed request to %s got response: %s\n", req.URL, resp.Status)
+		resp.Body.Close()
+
+		// 防止后续重用
+		req.Body = ioutil.NopCloser(bytes.NewReader(bodyBytes))
+	}
+}
+
+func main() {
+	// 设置处理函数
+	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+		if err := recordRequest(req); err != nil {
+			http.Error(w, "failed to record request", http.StatusInternalServerError)
+			return
+		}
+		fmt.Fprintf(w, "Request recorded!") // 这里可以替换成实际的处理逻辑
+	})
+
+	// 启动服务器
+	go func() {
+		log.Fatal(http.ListenAndServe(":8125", nil))
+	}()
+
+	// 做一些事情，比如等待用户输入来触发回放（阻塞）
+	fmt.Println("Press ENTER to replay recorded requests...")
+	fmt.Scanln()
+
+	// 回放请求
+	replayRequests()
+}
