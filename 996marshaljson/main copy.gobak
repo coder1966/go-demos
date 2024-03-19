@@ -12,6 +12,7 @@ var inFile = "data.json"
 var outLine string
 
 func main() {
+	// convSlice2Map()
 
 	f, err := os.ReadFile(inFile)
 	if err != nil {
@@ -98,16 +99,45 @@ func getWord(str string) string {
 }
 
 func getTranslate(key string, isZh bool) string {
-
-	ss, ok := newMap[key]
-	if ok {
-		if isZh {
-			return ss[1]
-		} else {
-			return ss[0]
+	for _, v := range translate {
+		if key == v[0] {
+			if isZh {
+				return v[2]
+			} else {
+				return v[1]
+			}
 		}
 	}
 
 	return "################"
 	panic(fmt.Sprint("not this key", key))
+}
+
+func convSlice2Map() {
+	lines := `package main
+
+var newMap = map[string]([2]string){
+`
+	outLine += lines
+
+	newMap := make(map[string]([2]string))
+	for _, v := range translate {
+		newMap[v[0]] = [2]string{v[1], v[2]}
+		lines := fmt.Sprintf("\"%s\": [2]string{\n", v[0])
+		outLine += lines
+
+		lines = fmt.Sprintf("\"%s\",\n", v[1])
+		outLine += lines
+
+		lines = fmt.Sprintf("\"%s\",\n},\n", v[2])
+		outLine += lines
+	}
+
+	outLine += "}\n"
+
+	if err := os.WriteFile(outFile, []byte(outLine), 0666); err != nil {
+		panic(err)
+	}
+
+	os.Exit(0)
 }

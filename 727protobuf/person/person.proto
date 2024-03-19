@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+// 定义包名（在生成代码时会使用）
+package person;
+
+// 指定 Go 代码的包名和路径（替换为你想要的包路径和名称）
+option go_package = ".";
+
+
+// 定义一个消息（即一个数据结构）
+message Person {
+  // 每个字段都有一个唯一的编号。这些编号在二进制格式中用于标记字段。
+  string name = 1;
+  int64 id = 2;
+  bytes detail = 3;
+}

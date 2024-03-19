@@ -3,12 +3,12 @@
   "dashboardExtend": {
     "groupUnfoldStatus": {
       "BE": true,
-      "BE tasks": true,
+      "BE tasks": false,
       "Cluster Overview": false,
-      "FE JVM": true,
+      "FE JVM": false,
       "Jobs": false,
       "Overview": false,
-      "Query Statistic": true,
+      "Query Statistic": false,
       "Transaction": false
     }
   },
@@ -398,7 +398,7 @@
             "showLineAxis": false,
             "showTitle": true,
             "timeInterval": "10s",
-            "titleDesc": "{{.Dashboard.Total_alive_number_of_Backends._Normally}}",
+            "titleDesc": "{{.Dashboard.Total_alive_number_of_Backends}}",
             "unitType": "global",
             "units": []
           }
@@ -452,7 +452,7 @@
               "groupByTime": "",
               "indexFilter": "",
               "namespace": "metric",
-              "q": "M::`doris_common`:(LAST(`node_info`)) { `type` = 'be_node_num' and `state` = 'alive' }",
+              "q": "M::`doris_common`:(last(`node_info`)) { `type` = 'be_node_num' and `state` = 'alive' }",
               "queryFuncs": [],
               "type": "simple"
             },
@@ -1299,7 +1299,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.The_left_Y_axes_shows_write_latency_of_99th,_The_right_Y_axes_shows_the_write_per_seconds_of_journal}}",
+            "titleDesc": "{{.Dashboard.The_left_Y_axes_shows_write_latency_of_99th_The_right_Y_axes_shows_the_write_per_seconds_of_journal}}",
             "unitType": "custom",
             "units": [
               {
@@ -2371,7 +2371,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard. Number_of_tablets_begin_scheduled}}",
+            "titleDesc": "{{.Dashboard.Number_of_tablets_begin_scheduled}}",
             "unitType": "global",
             "units": [],
             "xAxisShowType": "time",
@@ -2726,7 +2726,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.99_quantiles_of_query_latency_on_each_Frontends}}",
+            "titleDesc": "{{.Dashboard.quantiles_of_query_latency_on_each_Frontends}}",
             "unitType": "global",
             "units": [],
             "xAxisShowType": "time",
@@ -5531,7 +5531,7 @@
         "extend": {
           "fixedGroupByTime": null,
           "fixedTime": "",
-          "isRefresh": true,
+          "isRefresh": false,
           "settings": {
             "alias": [],
             "changeWorkspace": false,
@@ -5561,7 +5561,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.JVM_Heap_usage_of_specified_Frontend,_Left_Y_Axes_shows_the_used/max_heap_size,_Right_Y_Axes_shows_the_used_percentage}}",
+            "titleDesc": "{{.Dashboard.JVM_Heap_usage_of_specified_Frontend_Left_Y_Axes_shows_the_used_max_heap_size_Right_Y_Axes_shows_the_used_percentage}}",
             "unitType": "custom",
             "units": [
               {
@@ -5760,7 +5760,7 @@
         "extend": {
           "fixedGroupByTime": null,
           "fixedTime": "",
-          "isRefresh": true,
+          "isRefresh": false,
           "settings": {
             "alias": [],
             "changeWorkspace": false,
@@ -5793,7 +5793,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.JVM_Non_Heap_usage_of_specified_Frontend._Left_Y_Axes_shows_the_used/committed_non_heap_size}}",
+            "titleDesc": "{{.Dashboard.JVM_Non_Heap_usage_of_specified_Frontend._Left_Y_Axes_shows_the_used_committed_non_heap_size}}",
             "unitType": "global",
             "units": [],
             "xAxisShowType": "time",
@@ -5897,7 +5897,7 @@
         "extend": {
           "fixedGroupByTime": null,
           "fixedTime": "",
-          "isRefresh": true,
+          "isRefresh": false,
           "settings": {
             "alias": [],
             "changeWorkspace": false,
@@ -5930,7 +5930,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.JVM_old_generation_usage_of_specified_Frontend,_Left_Y_Axes_shows_the_used/max_old_generation_size,_Right_Y_Axes_shows_the_used_percentage}}",
+            "titleDesc": "{{.Dashboard.JVM_old_generation_usage_of_specified_Frontend_Left_Y_Axes_shows_the_used_max_old_generation_size_Right_Y_Axes_shows_the_used_percentage}}",
             "unitType": "custom",
             "units": [
               {
@@ -6138,7 +6138,7 @@
         "extend": {
           "fixedGroupByTime": null,
           "fixedTime": "",
-          "isRefresh": true,
+          "isRefresh": false,
           "settings": {
             "alias": [],
             "changeWorkspace": false,
@@ -6168,7 +6168,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.JVM_full_gc_stat_of_specified_Frontend,_Left_Y_Axes_shows_times_of_full_gc,_Right_Y_Axes_shows_the_time_cost_of_each_full_gc}}",
+            "titleDesc": "{{.Dashboard.JVM_full_gc_stat_of_specified_Frontend_Left_Y_Axes_shows_times_of_full_gc_Right_Y_Axes_shows_the_time_cost_of_each_full_gc}}",
             "unitType": "custom",
             "units": [
               {
@@ -6320,7 +6320,7 @@
         "extend": {
           "fixedGroupByTime": null,
           "fixedTime": "",
-          "isRefresh": true,
+          "isRefresh": false,
           "settings": {
             "alias": [],
             "changeWorkspace": false,
@@ -6350,7 +6350,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.JVM_young_generation_usage_of_specified_Frontend,_Left_Y_Axes_shows_the_used/max_young_generation_size,_Right_Y_Axes_shows_the_used_percentage}}",
+            "titleDesc": "{{.Dashboard.JVM_young_generation_usage_of_specified_Frontend_Left_Y_Axes_shows_the_used_max_young_generation_size_Right_Y_Axes_shows_the_used_percentage}}",
             "unitType": "custom",
             "units": [
               {
@@ -6558,7 +6558,7 @@
         "extend": {
           "fixedGroupByTime": null,
           "fixedTime": "",
-          "isRefresh": true,
+          "isRefresh": false,
           "settings": {
             "alias": [],
             "changeWorkspace": false,
@@ -6588,7 +6588,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.JVM_young_gc_stat_of_specified_Frontend,_Left_Y_Axes_shows_times_of_young_gc,_Right_Y_Axes_shows_the_time_cost_of_each_young_gc}}",
+            "titleDesc": "{{.Dashboard.JVM_young_gc_stat_of_specified_Frontend_Left_Y_Axes_shows_times_of_young_gc_Right_Y_Axes_shows_the_time_cost_of_each_young_gc}}",
             "unitType": "custom",
             "units": [
               {
@@ -6837,7 +6837,7 @@
         "extend": {
           "fixedGroupByTime": null,
           "fixedTime": "",
-          "isRefresh": true,
+          "isRefresh": false,
           "settings": {
             "alias": [],
             "changeWorkspace": false,
@@ -6870,7 +6870,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.CPU_idle_stat_of_Backends,_Low_means_CPU_is_busy}}",
+            "titleDesc": "{{.Dashboard.CPU_idle_stat_of_Backends_Low_means_CPU_is_busy}}",
             "unitType": "global",
             "units": [],
             "xAxisShowType": "time",
@@ -7482,7 +7482,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.The_file_descriptor_usage_of_Backends,_Left_Y_axes_shows_the_used_fd_num,_Right_Y_axes_shows_the_soft_limit_open_file_number}}",
+            "titleDesc": "{{.Dashboard.The_file_descriptor_usage_of_Backends_Left_Y_axes_shows_the_used_fd_num_Right_Y_axes_shows_the_soft_limit_open_file_number}}",
             "unitType": "global",
             "units": [],
             "xAxisShowType": "time",
@@ -7653,7 +7653,7 @@
         "extend": {
           "fixedGroupByTime": null,
           "fixedTime": "",
-          "isRefresh": true,
+          "isRefresh": false,
           "settings": {
             "alias": [],
             "changeWorkspace": false,
@@ -7683,7 +7683,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.IO_util_of_Backends,_High_means_I/O_is_busy}}",
+            "titleDesc": "{{.Dashboard.IO_util_of_Backends_High_means_IO_is_busy}}",
             "unitType": "custom",
             "units": [
               {
@@ -7799,7 +7799,7 @@
         "extend": {
           "fixedGroupByTime": null,
           "fixedTime": "",
-          "isRefresh": true,
+          "isRefresh": false,
           "settings": {
             "alias": [],
             "changeWorkspace": false,
@@ -7832,7 +7832,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Base_compaction_rate_of_Backends,_Normally_base_compaction_only_runs_between_20_to_4_and_it_is_configurable,_Right_Y_axes_indicates_the_total_base_compaction_bytes}}",
+            "titleDesc": "{{.Dashboard.Base_compaction_rate_of_Backends_Normally_base_compaction_only_runs_between_20_to_4_and_it_is_configurable_Right_Y_axes_indicates_the_total_base_compaction_bytes}}",
             "unitType": "global",
             "units": [],
             "xAxisShowType": "time",
@@ -7939,7 +7939,7 @@
         "extend": {
           "fixedGroupByTime": null,
           "fixedTime": "",
-          "isRefresh": true,
+          "isRefresh": false,
           "settings": {
             "alias": [],
             "changeWorkspace": false,
@@ -7972,7 +7972,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Base_compaction_rate_of_Backends,_Normally_base_compaction_only_runs_between_20_to_4_and_it_is_configurable,_Right_Y_axes_indicates_the_total_base_compaction_bytes}}",
+            "titleDesc": "{{.Dashboard.Cumulative_compaction_rate_of_Backends_The_total_cumulative_compaction_bytes}}",
             "unitType": "global",
             "units": [],
             "xAxisShowType": "time",
@@ -8079,7 +8079,7 @@
         "extend": {
           "fixedGroupByTime": null,
           "fixedTime": "",
-          "isRefresh": true,
+          "isRefresh": false,
           "settings": {
             "alias": [],
             "changeWorkspace": false,
@@ -8112,7 +8112,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Loading_rate_of_Backends,_This_indicates_the_rate_of_file_downloading_in_LOADING_state_of_load_job,_Right_Y_axes_indicates_the_total_rate_of_file_downloading}}",
+            "titleDesc": "{{.Dashboard.Loading_rate_of_Backends_This_indicates_the_rate_of_file_downloading_in_LOADING_state_of_load_job_Right_Y_axes_indicates_the_total_rate_of_file_downloading}}",
             "unitType": "global",
             "units": [],
             "xAxisShowType": "time",
@@ -8229,7 +8229,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Loading_rows_rate_of_Backends,_This_indicates_the_rate_of_rows_loaded_in_LOADING_state_of_load_job,_Right_Y_axes_shows_the_total_push_rate_of_cluster}}",
+            "titleDesc": "{{.Dashboard.Loading_rows_rate_of_Backends_This_indicates_the_rate_of_rows_loaded_in_LOADING_state_of_load_job_Right_Y_axes_shows_the_total_push_rate_of_cluster}}",
             "unitType": "custom",
             "units": [],
             "xAxisShowType": "time",
@@ -8316,7 +8316,7 @@
         "extend": {
           "fixedGroupByTime": null,
           "fixedTime": "",
-          "isRefresh": true,
+          "isRefresh": false,
           "settings": {
             "alias": [],
             "changeWorkspace": false,
@@ -8349,7 +8349,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Scan_rate_of_Backends,_This_indicates_the_read_rate_when_processing_queries}}",
+            "titleDesc": "{{.Dashboard.Scan_rate_of_Backends_This_indicates_the_read_rate_when_processing_queries}}",
             "unitType": "global",
             "units": [
               {
@@ -8448,7 +8448,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Scan_rows_rate_of_Backends,_This_indicates_the_read_rows_rate_when_processing_queries}}",
+            "titleDesc": "{{.Dashboard.Scan_rows_rate_of_Backends_This_indicates_the_read_rows_rate_when_processing_queries}}",
             "unitType": "custom",
             "units": [],
             "xAxisShowType": "time",
@@ -8507,7 +8507,7 @@
         "extend": {
           "fixedGroupByTime": null,
           "fixedTime": "",
-          "isRefresh": true,
+          "isRefresh": false,
           "settings": {
             "alias": [],
             "changeWorkspace": false,
@@ -8537,7 +8537,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Left_Y_axes_shows_the_write_rate_of_tablet_header_saved_in_rocksdb,_Right_Y_axes_shows_the_duration_of_each_write_operation}}",
+            "titleDesc": "{{.Dashboard.Tablet_Meta_Write}}",
             "unitType": "custom",
             "units": [
               {
@@ -8684,7 +8684,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Left_Y_axes_shows_the_read_rate_of_tablet_header_saved_in_rocksdb,_Right_Y_axes_shows_the_duration_of_each_read_operation}}",
+            "titleDesc": "{{.Dashboard.Tablet_Meta_Read}}",
             "unitType": "custom",
             "units": [
               {
@@ -8831,7 +8831,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Left_Y_axes_indicates_the_failure_rate_of_specified_tasks,_Normally_it_should_be_0,_Right_Y_axes_indicates_the_total_number_of_specified_tasks_in_all_Backends}}",
+            "titleDesc": "{{.Dashboard.Tablets_Report}}",
             "unitType": "custom",
             "units": [],
             "xAxisShowType": "time",
@@ -8991,7 +8991,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Left_Y_axes_indicates_the_failure_rate_of_specified_tasks,_Normally_it_should_be_0,_Right_Y_axes_indicates_the_total_number_of_specified_tasks_in_all_Backends}}",
+            "titleDesc": "{{.Dashboard.Single_Tablet_Report}}",
             "unitType": "custom",
             "units": [],
             "xAxisShowType": "time",
@@ -9151,7 +9151,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Left_Y_axes_indicates_the_failure_rate_of_specified_tasks,_Normally_it_should_be_0,_Right_Y_axes_indicates_the_total_number_of_specified_tasks_in_all_Backends}}",
+            "titleDesc": "{{.Dashboard.Finish_task_report}}",
             "unitType": "custom",
             "units": [],
             "xAxisShowType": "time",
@@ -9311,7 +9311,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Left_Y_axes_indicates_the_failure_rate_of_specified_tasks,_Normally_it_should_be_0,_Right_Y_axes_indicates_the_total_number_of_specified_tasks_in_all_Backends}}",
+            "titleDesc": "{{.Dashboard.Push_Task}}",
             "unitType": "custom",
             "units": [
               {
@@ -9574,7 +9574,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Left_Y_axes_indicates_the_failure_rate_of_specified_tasks,_Normally_it_should_be_0,_Right_Y_axes_indicates_the_total_number_of_specified_tasks_in_all_Backends}}",
+            "titleDesc": "{{.Dashboard.Delete}}",
             "unitType": "custom",
             "units": [],
             "xAxisShowType": "time",
@@ -9729,7 +9729,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Left_Y_axes_indicates_the_failure_rate_of_specified_tasks,_Normally_it_should_be_0,_Right_Y_axes_indicates_the_total_number_of_specified_tasks_in_all_Backends}}",
+            "titleDesc": "{{.Dashboard.Base_Compaction}}",
             "unitType": "custom",
             "units": [],
             "xAxisShowType": "time",
@@ -9893,7 +9893,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Left_Y_axes_indicates_the_failure_rate_of_specified_tasks,_Normally_it_should_be_0,_Right_Y_axes_indicates_the_total_number_of_specified_tasks_in_all_Backends}}",
+            "titleDesc": "{{.Dashboard.Cumulative_Compaction}}",
             "unitType": "custom",
             "units": [],
             "xAxisShowType": "time",
@@ -10057,7 +10057,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Left_Y_axes_indicates_the_failure_rate_of_specified_tasks,_Normally_it_should_be_0,_Right_Y_axes_indicates_the_total_number_of_specified_tasks_in_all_Backends}}",
+            "titleDesc": "{{.Dashboard.Clone}}",
             "unitType": "custom",
             "units": [],
             "xAxisShowType": "time",
@@ -10221,7 +10221,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Left_Y_axes_indicates_the_failure_rate_of_specified_tasks,_Normally_it_should_be_0,_Right_Y_axes_indicates_the_total_number_of_specified_tasks_in_all_Backends}}",
+            "titleDesc": "{{.Dashboard.Create_rollup}}",
             "unitType": "custom",
             "units": [],
             "xAxisShowType": "time",
@@ -10385,7 +10385,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Left_Y_axes_indicates_the_failure_rate_of_specified_tasks,_Normally_it_should_be_0,_Right_Y_axes_indicates_the_total_number_of_specified_tasks_in_all_Backends}}",
+            "titleDesc": "{{.Dashboard.Schema_change}}",
             "unitType": "custom",
             "units": [],
             "xAxisShowType": "time",
@@ -10549,7 +10549,7 @@
             "sorderByOrder": "desc",
             "stackType": "time",
             "timeInterval": "auto",
-            "titleDesc": "{{.Dashboard.Left_Y_axes_indicates_the_failure_rate_of_specified_tasks,_Normally_it_should_be_0,_Right_Y_axes_indicates_the_total_number_of_specified_tasks_in_all_Backends}}",
+            "titleDesc": "{{.Dashboard.Create_tablet}}",
             "unitType": "custom",
             "units": [],
             "xAxisShowType": "time",

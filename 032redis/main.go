@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"strings"
 	"time"
 
@@ -109,8 +110,10 @@ func RedisDo02(index int, ip string) {
 		err := conn.Set(ctx, keyC, valueC, 0).Err()
 		if err != nil {
 			fmt.Println("redis put error: ", err)
+		} else {
+			fmt.Println("redis put : ", i)
+
 		}
-		fmt.Println("redis put : ", i)
 	}
 
 }
@@ -118,9 +121,10 @@ func RedisDo02(index int, ip string) {
 func RedisDo03(index int, ip string) {
 	// 初始化redis客户端
 	conn := redis.NewClient(&redis.Options{
-		Addr: ip + ":6379",
-		// Password: "654123", // no password set
-		DB: 0, // use default DB
+		Addr:     ip + ":6379",
+		Username: "default",   // no password set
+		Password: "passwd123", // no password set
+		DB:       0,           // use default DB
 	})
 	// 批量写数据
 	batchLen := index
@@ -132,6 +136,56 @@ func RedisDo03(index int, ip string) {
 	}
 	for i, v := range keySlice {
 		handle(conn, valueStr{key: v, value: strings.Repeat("0123456789abcdef", i)})
+	}
+}
+
+func WriteDo04(index int, ip string, portf, porte int) {
+
+	for i := portf; i <= porte; i++ {
+		writeDo04(index, ip+":"+strconv.Itoa(i))
+	}
+}
+
+func writeDo04(index int, ip string) {
+	// 初始化redis客户端
+	conn := redis.NewClient(&redis.Options{
+		Addr:     ip,
+		Username: "default",   // no password set
+		Password: "passwd123", // no password set
+		DB:       0,           // use default DB
+	})
+	defer conn.Close()
+	// 批量写数据
+	batchLen := index
+	// 写字符串
+	keySlice := []string{}
+	for i := 0; i < batchLen; i++ {
+		l := strings.Trim(fmt.Sprintf("%d", i), "")
+		keySlice = append(keySlice, "wo"+l+ip)
+	}
+	for i, v := range keySlice {
+		handle(conn, valueStr{key: v, value: strings.Repeat("0123456789abcdef", i)})
+	}
+}
+
+func RedisDo05(index int, ip string, port string) {
+	// 初始化redis客户端
+	conn := redis.NewClient(&redis.Options{
+		Addr:     ip + ":" + port,
+		Username: "default",   // no password set
+		Password: "passwd123", // no password set
+		DB:       0,           // use default DB
+	})
+	// 批量写数据
+	batchLen := index
+	// 写字符串
+	keySlice := []string{}
+	for i := 0; i < batchLen; i++ {
+		l := strings.Trim(fmt.Sprintf("%d", i), "")
+		keySlice = append(keySlice, "wo"+l)
+	}
+	for i, v := range keySlice {
+		handle(conn, valueStr{key: v, value: time.Now().String() + strings.Repeat("0123456789abcdef", i)})
 	}
 }
 
@@ -192,8 +246,10 @@ func add(conn *redis.Client, path, value string) {
 	err := conn.Set(ctx, path, value, 0).Err()
 	if err != nil {
 		fmt.Println("redis put error: ", err)
+	} else {
+		fmt.Println("创建成功", path, value)
 	}
-	fmt.Println("创建成功", path)
+
 }
 
 // 删除
